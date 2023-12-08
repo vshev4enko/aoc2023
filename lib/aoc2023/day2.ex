@@ -1,4 +1,6 @@
-defmodule Aok2023.Day2 do
+defmodule Aoc2023.Day2 do
+  import Aoc2023.Utils
+
   @input_path "./input/day2"
   @bag_contains %{"red" => 12, "green" => 13, "blue" => 14}
 
@@ -55,7 +57,7 @@ defmodule Aok2023.Day2 do
     end)
   end
 
-  defp possible?(subset) do
+  def possible?(subset) do
     Enum.reduce_while(subset, true, fn {color, amount}, acc ->
       max_cubes = Map.get(@bag_contains, color)
 
@@ -65,9 +67,5 @@ defmodule Aok2023.Day2 do
         {:halt, false}
       end
     end)
-  end
-
-  defp debug(stream, opts) do
-    Stream.map(stream, fn data -> IO.inspect(data, opts) end)
   end
 end

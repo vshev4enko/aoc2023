@@ -1,21 +1,9 @@
 # Aoc2023
 
-**TODO: Add description**
+Advent of code 2023 Elixir solution
 
-## Installation
+## Run
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `aoc2023` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:aoc2023, "~> 0.1.0"}
-  ]
-end
 ```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/aoc2023>.
-
+mix execute -d 1 -p 1
+```

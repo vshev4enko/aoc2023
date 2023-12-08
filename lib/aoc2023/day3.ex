@@ -1,4 +1,4 @@
-defmodule Aok2023.Day3 do
+defmodule Aoc2023.Day3 do
   @file_path "./input/day3"
 
   def part1 do
@@ -39,10 +39,6 @@ defmodule Aok2023.Day3 do
       end)
     end)
     |> Enum.uniq()
-  end
-
-  defp debug(stream, opts \\ []) do
-    Stream.map(stream, fn data -> IO.inspect(data, opts) end)
   end
 
   defp is_symbol("." <> _), do: false
