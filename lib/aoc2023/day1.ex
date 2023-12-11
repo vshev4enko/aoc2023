@@ -1,8 +1,9 @@
 defmodule Aoc2023.Day1 do
-  @input_path "./input/day1"
+  @behaviour Aoc2023
 
-  def part1 do
-    @input_path
+  @impl true
+  def part1(path) do
+    path
     |> File.stream!()
     |> Stream.map(fn str -> Regex.replace(~r/\D+/, str, "") end)
     |> Stream.map(fn dig ->
@@ -18,8 +19,9 @@ defmodule Aoc2023.Day1 do
     |> Enum.sum()
   end
 
-  def part2 do
-    @input_path
+  @impl true
+  def part2(path) do
+    path
     |> File.stream!()
     |> Stream.map(fn line -> line |> String.replace("\n", "") |> String.split("", trim: true) end)
     |> Stream.map(fn row ->
@@ -60,4 +62,9 @@ defmodule Aoc2023.Day1 do
   defp resolve("eight"), do: "8"
   defp resolve("nine"), do: "9"
   defp resolve(number), do: number
+
+  @impl true
+  def parse_data(path) do
+    path
+  end
 end

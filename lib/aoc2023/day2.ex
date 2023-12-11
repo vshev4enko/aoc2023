@@ -1,11 +1,13 @@
 defmodule Aoc2023.Day2 do
+  @behaviour Aoc2023
+
   import Aoc2023.Utils
 
-  @input_path "./input/day2"
   @bag_contains %{"red" => 12, "green" => 13, "blue" => 14}
 
-  def part2 do
-    @input_path
+  @impl true
+  def part2(path) do
+    path
     |> File.stream!()
     |> Stream.map(fn line -> String.replace(line, "\n", "") end)
     |> Stream.map(fn line -> parse_game(line) end)
@@ -67,5 +69,10 @@ defmodule Aoc2023.Day2 do
         {:halt, false}
       end
     end)
+  end
+
+  @impl true
+  def parse_data(path) do
+    path
   end
 end

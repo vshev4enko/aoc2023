@@ -10,7 +10,8 @@ defmodule Mix.Tasks.Aoc do
 
   @switches [
     day: :string,
-    part: :string
+    part: :string,
+    test: :boolean
   ]
 
   @moduledoc """
@@ -32,7 +33,9 @@ defmodule Mix.Tasks.Aoc do
 
     module = Module.concat([Aoc2023, :"Day#{day}"])
 
-    apply(module, :"part#{part}", [])
+    path = (opts[:test] && "./input/test#{day}") || "./input/day#{day}"
+
+    apply(module, :"part#{part}", [apply(module, :parse_data, [path])])
     |> IO.inspect(label: "result")
   end
 end

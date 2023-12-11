@@ -1,18 +1,16 @@
 defmodule Aoc2023.Day3 do
-  @file_path "./input/day3"
+  @behaviour Aoc2023
 
-  def part1 do
-    {symbols, numbers, _} = parse_data()
-
+  @impl true
+  def part1({symbols, numbers, _}) do
     symbols
     |> Enum.map(&find_around(&1, numbers))
     |> List.flatten()
     |> Enum.sum()
   end
 
-  def part2 do
-    {symbols, numbers, _} = parse_data()
-
+  @impl true
+  def part2({symbols, numbers, _}) do
     for %{symbol: s} = symbol <- symbols, s == "*" do
       find_around(symbol, numbers)
     end
@@ -51,8 +49,9 @@ defmodule Aoc2023.Day3 do
     end
   end
 
-  defp parse_data do
-    @file_path
+  @impl true
+  def parse_data(path) do
+    path
     |> File.stream!()
     |> Stream.map(fn line -> String.replace(line, "\n", "") end)
     |> Stream.map(fn line -> Regex.scan(~r/(?:\.+|\d+|\D)/, line) |> List.flatten() end)
