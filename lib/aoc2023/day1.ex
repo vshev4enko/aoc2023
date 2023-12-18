@@ -2,9 +2,8 @@ defmodule Aoc2023.Day1 do
   @behaviour Aoc2023
 
   @impl true
-  def part1(path) do
-    path
-    |> File.stream!()
+  def part1(stream) do
+    stream
     |> Stream.map(fn str -> Regex.replace(~r/\D+/, str, "") end)
     |> Stream.map(fn dig ->
       byte_size = byte_size(dig)
@@ -20,9 +19,8 @@ defmodule Aoc2023.Day1 do
   end
 
   @impl true
-  def part2(path) do
-    path
-    |> File.stream!()
+  def part2(stream) do
+    stream
     |> Stream.map(fn line -> line |> String.replace("\n", "") |> String.split("", trim: true) end)
     |> Stream.map(fn row ->
       first = Enum.reduce_while(row, "", &reduce_beginning/2)
@@ -66,5 +64,6 @@ defmodule Aoc2023.Day1 do
   @impl true
   def parse_data(path) do
     path
+    |> File.stream!()
   end
 end

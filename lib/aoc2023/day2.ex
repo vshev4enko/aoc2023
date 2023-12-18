@@ -6,9 +6,8 @@ defmodule Aoc2023.Day2 do
   @bag_contains %{"red" => 12, "green" => 13, "blue" => 14}
 
   @impl true
-  def part2(path) do
-    path
-    |> File.stream!()
+  def part2(stream) do
+    stream
     |> Stream.map(fn line -> String.replace(line, "\n", "") end)
     |> Stream.map(fn line -> parse_game(line) end)
     # |> debug(label: "stage 2")
@@ -74,5 +73,6 @@ defmodule Aoc2023.Day2 do
   @impl true
   def parse_data(path) do
     path
+    |> File.stream!()
   end
 end

@@ -19,23 +19,23 @@ defmodule Aoc2023.Day4 do
   def part2(cards) do
     cards_map = Enum.into(cards, %{}, fn card -> {card.id, card} end)
 
-    Stream.resource(fn -> 0 end, fn n -> {[n + 1], n + 1} end, fn n -> n end)
-    |> Enum.reduce_while({0, cards}, fn
-      _id, {count, []} ->
-        {:halt, count}
+    0
+    |> Stream.iterate(&(&1 + 1))
+    |> Enum.reduce_while(cards, fn
+      iter, [] ->
+        {:halt, iter}
 
-      _id, {count, [card | cards]} ->
-        count = count + 1
+      _iter, [card | cards] ->
         number_of_matching = number_of_matching(card)
 
         if number_of_matching == 0 do
-          {:cont, {count, cards}}
+          {:cont, cards}
         else
           card_id = card.id
           copies_ids = Enum.to_list((card_id + 1)..(card_id + number_of_matching))
 
           copies = Map.take(cards_map, copies_ids) |> Map.values()
-          {:cont, {count, copies ++ cards}}
+          {:cont, copies ++ cards}
         end
     end)
   end
@@ -47,8 +47,8 @@ defmodule Aoc2023.Day4 do
   @impl true
   def parse_data(path) do
     path
-    |> File.stream!()
-    |> Stream.map(fn line -> String.replace(line, "\n", "") end)
+    |> File.read!()
+    |> String.split("\n", trim: true)
     |> Enum.into([], fn line ->
       ["Card " <> card_id, rest] = String.split(line, ":")
       [winning, having] = String.split(rest, "|")
