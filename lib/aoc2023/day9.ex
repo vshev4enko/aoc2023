@@ -11,7 +11,11 @@ defmodule Aoc2023.Day9 do
   @impl true
   def part2(data) do
     data
-    |> Enum.map(fn list -> list |> Enum.map(&List.first/1) |> Enum.reduce(&Kernel.-(&1, &2)) end)
+    |> Enum.map(fn list ->
+      list
+      |> Enum.map(&List.first/1)
+      |> Enum.reduce(&Kernel.-(&1, &2))
+    end)
     |> Enum.sum()
   end
 
@@ -29,7 +33,7 @@ defmodule Aoc2023.Day9 do
 
         new_acc = [new_sequence | acc]
 
-        if Enum.uniq(new_sequence) == [0] do
+        if Enum.all?(new_sequence, fn i -> i == 0 end) do
           {:halt, new_acc}
         else
           {:cont, new_acc}
@@ -38,7 +42,7 @@ defmodule Aoc2023.Day9 do
     end)
   end
 
-  defp generate_diff([f, s]), do: [s - f]
+  defp generate_diff([_]), do: []
 
   defp generate_diff([f, s | t]) do
     [s - f | generate_diff([s | t])]
